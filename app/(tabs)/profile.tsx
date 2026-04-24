@@ -11,7 +11,6 @@ export default function Profile() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ padding: 20 }}>
 
-      {/* Header */}
       <View style={styles.header}>
         <View style={styles.avatar}>
           <Ionicons name="person" size={36} color={Colors.text} />
@@ -21,7 +20,6 @@ export default function Profile() {
         <Text style={styles.email}>{email}</Text>
       </View>
 
-      {/* Info Card */}
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Informações</Text>
 
@@ -33,7 +31,6 @@ export default function Profile() {
           onChange={setName}
         />
 
-        {/* Email */}
         <InputRow
           icon="mail-outline"
           label="Email"
@@ -41,7 +38,6 @@ export default function Profile() {
           onChange={setEmail}
         />
 
-        {/* Endereço */}
         <InputRow
           icon="location-outline"
           label="Endereço"
@@ -50,7 +46,6 @@ export default function Profile() {
         />
       </View>
 
-      {/* Orders Card (unchanged) */}
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Pedidos recentes</Text>
 

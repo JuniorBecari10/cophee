@@ -113,8 +113,13 @@ function MenuItem({ item }) {
   const { addItem } = useCart();
 
   return (
-    <View style={styles.item}>
-      
+    <Pressable
+      onPress={() => addItem(item)}
+      style={({ pressed }) => [
+        styles.item,
+        pressed && { opacity: 0.6 },
+      ]}
+    >
       <View style={styles.left}>
         <Image source={item.img} style={styles.image} />
 
@@ -124,12 +129,7 @@ function MenuItem({ item }) {
           <Text style={styles.price}>{format(item.price)}</Text>
         </View>
       </View>
-
-      <Pressable onPress={() => addItem(item)}>
-        <Ionicons name="add-circle-outline" size={26} color={Colors.accent} />
-      </Pressable>
-
-    </View>
+    </Pressable>
   );
 }
 
