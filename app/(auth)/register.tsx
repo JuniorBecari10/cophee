@@ -3,30 +3,34 @@ import { useRouter } from 'expo-router';
 import { Colors } from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function Login() {
+export default function Register() {
   const router = useRouter();
 
   return (
     <View style={styles.container}>
-      
-      {/* Logo / Title */}
+
+      {/* Header */}
       <View style={styles.header}>
-        <Ionicons name="person-outline" size={50} color={Colors.text} />
-        <Text style={styles.title}>Login</Text>
+        <Ionicons name="person-add-outline" size={50} color={Colors.text} />
+        <Text style={styles.title}>Criar conta</Text>
         <Text style={styles.subtitle}>Entre para o Cophee!</Text>
       </View>
 
       {/* Form */}
       <View style={styles.card}>
+        <Input icon="person-outline" placeholder="Nome" />
         <Input icon="mail-outline" placeholder="Email" />
         <Input icon="lock-closed-outline" placeholder="Senha" secure />
 
-        <Pressable style={styles.button} onPress={() => router.replace('/home')}>
-          <Text style={styles.buttonText}>Entrar</Text>
+        <Pressable
+          style={styles.button}
+          onPress={() => router.replace('/home')}
+        >
+          <Text style={styles.buttonText}>Cadastrar</Text>
         </Pressable>
 
-        <Pressable onPress={() => router.push('/(auth)/register')}>
-          <Text style={styles.link}>Criar conta</Text>
+        <Pressable onPress={() => router.back()}>
+          <Text style={styles.link}>Já tenho conta</Text>
         </Pressable>
       </View>
 
@@ -62,7 +66,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: '700',
     color: Colors.text,
   },

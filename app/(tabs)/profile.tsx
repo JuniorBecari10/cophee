@@ -1,8 +1,13 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput } from 'react-native';
 import { Colors } from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
+import { useState } from 'react';
 
 export default function Profile() {
+  const [name, setName] = useState('Antonio Carlos');
+  const [email, setEmail] = useState('antonio@email.com');
+  const [address, setAddress] = useState('Rua das Flores, 123');
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ padding: 20 }}>
 
@@ -12,40 +17,40 @@ export default function Profile() {
           <Ionicons name="person" size={36} color={Colors.text} />
         </View>
 
-        <Text style={styles.name}>Antonio Carlos</Text>
-        <Text style={styles.email}>antonio@email.com</Text>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.email}>{email}</Text>
       </View>
 
       {/* Info Card */}
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Informações</Text>
 
-        <View style={styles.row}>
-          <View style={styles.rowLeft}>
-            <Ionicons name="person-outline" size={18} color={Colors.textLight} />
-            <Text style={styles.label}>Nome</Text>
-          </View>
-          <Text style={styles.value}>Antonio Carlos</Text>
-        </View>
+        {/* Nome */}
+        <InputRow
+          icon="person-outline"
+          label="Nome"
+          value={name}
+          onChange={setName}
+        />
 
-        <View style={styles.row}>
-          <View style={styles.rowLeft}>
-            <Ionicons name="mail-outline" size={18} color={Colors.textLight} />
-            <Text style={styles.label}>Email</Text>
-          </View>
-          <Text style={styles.value}>antonio@email.com</Text>
-        </View>
+        {/* Email */}
+        <InputRow
+          icon="mail-outline"
+          label="Email"
+          value={email}
+          onChange={setEmail}
+        />
 
-        <View style={styles.row}>
-          <View style={styles.rowLeft}>
-            <Ionicons name="location-outline" size={18} color={Colors.textLight} />
-            <Text style={styles.label}>Endereço</Text>
-          </View>
-          <Text style={styles.value}>Rua das Flores, 123</Text>
-        </View>
+        {/* Endereço */}
+        <InputRow
+          icon="location-outline"
+          label="Endereço"
+          value={address}
+          onChange={setAddress}
+        />
       </View>
 
-      {/* Orders Card */}
+      {/* Orders Card (unchanged) */}
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Pedidos recentes</Text>
 
@@ -82,6 +87,26 @@ export default function Profile() {
       </View>
 
     </ScrollView>
+  );
+}
+
+function InputRow({ icon, label, value, onChange }) {
+  return (
+    <View style={styles.row}>
+      
+      <View style={styles.rowLeft}>
+        <Ionicons name={icon} size={18} color={Colors.textLight} />
+        <Text style={styles.label}>{label}</Text>
+      </View>
+
+      <TextInput
+        value={value}
+        onChangeText={onChange}
+        style={styles.input}
+        placeholderTextColor={Colors.textLight}
+      />
+
+    </View>
   );
 }
 
@@ -145,10 +170,14 @@ const styles = StyleSheet.create({
     color: Colors.textLight,
   },
 
-  value: {
-    fontSize: 16,
+  input: {
+    marginTop: 4,
+    borderWidth: 1,
+    borderColor: Colors.textLight + '40',
+    borderRadius: 10,
+    padding: 10,
     color: Colors.text,
-    marginTop: 2,
+    backgroundColor: Colors.background,
   },
 
   order: {
