@@ -1,37 +1,34 @@
-import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { Colors } from '../constants/colors';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 
 export default function Checkout() {
   const router = useRouter();
-  const [method, setMethod] = useState('pix');
+  const [method, setMethod] = useState('Pix');
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Pagamento</Text>
+      
+      <Text style={styles.header}>Pagamento</Text>
 
-      {/* METHODS */}
       <View style={styles.card}>
-        {['pix', 'credito', 'debito'].map((m) => (
+        {['Pix', 'Crédito', 'Débito'].map((m) => (
           <Pressable
             key={m}
             style={[styles.option, method === m && styles.optionActive]}
             onPress={() => setMethod(m)}
           >
-            <Text style={styles.optionText}>{m.toUpperCase()}</Text>
+            <Text
+              style={[
+                styles.optionText,
+                method === m && styles.optionTextActive,
+              ]}
+            >
+              {m}
+            </Text>
           </Pressable>
         ))}
-      </View>
-
-      {/* FAKE INPUT */}
-      <View style={styles.card}>
-        <Text style={styles.label}>Dados</Text>
-        <TextInput
-          placeholder="Número / chave Pix"
-          placeholderTextColor={Colors.textLight}
-          style={styles.input}
-        />
       </View>
 
       <Pressable
@@ -41,7 +38,10 @@ export default function Checkout() {
           router.replace(`/status?order=${orderId}`);
         }}
       >
-        <Text style={{ color: '#fff' }}>Confirmar pagamento</Text>
+        <Text style={styles.buttonText}>Confirmar pagamento</Text>
+      </Pressable>
+      <Pressable style={styles.backButton} onPress={() => router.back()}>
+        <Text style={styles.backText}>Voltar</Text>
       </Pressable>
     </View>
   );
@@ -54,10 +54,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
 
-  title: {
-    fontSize: 22,
+  header: {
+    fontSize: 32,
+    fontWeight: '700',
     color: Colors.text,
     marginBottom: 20,
+    paddingTop: 10,
   },
 
   card: {
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
   },
 
   option: {
-    padding: 10,
+    padding: 12,
     borderRadius: 10,
     marginBottom: 8,
     borderWidth: 1,
@@ -83,17 +85,9 @@ const styles = StyleSheet.create({
     color: Colors.text,
   },
 
-  label: {
-    color: Colors.textLight,
-    marginBottom: 6,
-  },
-
-  input: {
-    borderWidth: 1,
-    borderColor: Colors.textLight + '40',
-    borderRadius: 10,
-    padding: 10,
-    color: Colors.text,
+  optionTextActive: {
+    color: '#fff',
+    fontWeight: '600',
   },
 
   button: {
@@ -101,5 +95,24 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 12,
     alignItems: 'center',
+  },
+
+  buttonText: {
+    color: '#fff',
+    fontWeight: '600',
+  },
+
+  backButton: {
+    marginTop: 10,
+    padding: 15,
+    borderRadius: 12,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.textLight + '40',
+  },
+
+  backText: {
+    color: Colors.textLight,
+    fontWeight: '500',
   },
 });
